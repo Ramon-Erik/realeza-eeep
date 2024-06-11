@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --cor-bg-btn-modal: #0084ff;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0 20px;
+    font-family: 'Inter', sans-serif;
+    background-color: #e9e9e9;
+}
+
+button, input[type=submit], input[type=reset] {
+    cursor: pointer;
+}
+
+header {
+    background-image: url(https://lh3.googleusercontent.com/tFoM0WgPenBga4vfodJThiqbgjMmE-QND1WMNv5yeVOXiKBvjiiEm9i3EzSdDAbxV48IvF6pgi82Xk-FcBLmETtpYejxcBzogGRxyonycCFvmzfgwT9lghPp2pUAIbPm3TxfPBvLyPnkWOkkVVwRx2jPZlclSQ);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 10vh auto 0 auto; 
+    max-width: 550px;
+    height: 150px;
+    border-radius: 20px;
+}
+
+main {
+    margin: 15px auto 75px auto;
+    max-width: 550px;
+    padding: 10px;
+    border-top: 10px solid #903234;
+    border-radius: 10px;
+    background-color: white;
+}
+
+main div.linha-cab {
+    padding-bottom: 15px;
+    border-bottom: 1px solid black;
+}
+
+main h1 {
+    margin-bottom: 7px;
+} 
+
+form div.campo {
+    margin: 15px 0;
+}
+
+form div.campo-radio {
+    display: flex;
+    gap: 20px;
+}
+
+form div.linha {
+    margin: 8px;
+}
+
+form div.area-btn {
+    position: relative;
+}
+
+form .area-btn {
+    position: absolute;
+    width: calc(100% + 10px);
+
+    bottom: -40px;
+    left: -5px;
+
+    transform: translateY(100%);
+
+    display: flex;
+    justify-content: space-between;
+}
+
+form .btn {
+    width: fit-content;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    font-size: .9rem;
+    margin: 0;
+}
+
+form .enviar {
+    padding: 10px;
+    background-color: #903234;
+    color: white;
+}
+
+form .limpar {
+    font-weight: bold;
+    color: #903234;
+}
+
+dialog,
+dialog::backdrop {
+    transition: .5s;
+    opacity: 1;
+    pointer-events: all;
+}
+
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 70%;
+    height: fit-content;
+    border-radius: 9px;
+    padding: 10px;
+    border: 1px solid transparent;
+}
+
+dialog .btns-dialog {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+dialog .btns-dialog button, 
+dialog .btns-dialog input[type=submit] {
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+dialog .btns-dialog button {
+    background: var(--cor-bg-btn-modal);
+    color: white;
+}
+
+footer {
+    font-size: .8rem;
+    text-align: center;
+}
+
+footer a {
+    position: relative;
+    color: black;
+    margin-left: 19px;
+}
+footer a:before {
+    content: '🔗';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -20px;
+}
