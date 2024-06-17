@@ -17,3 +17,8 @@ create table votos (
     nota_elegancia int,
     nota_desenvoltura int 
 );
+
+alter table votos add FOREIGN KEY (id_participante) REFERENCES participantes(id);
+alter table votos add FOREIGN KEY (id_jurado) REFERENCES jurados(id);
+
+simpatia, charme, elegancia, desenvoltura
