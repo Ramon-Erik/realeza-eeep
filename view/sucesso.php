@@ -26,6 +26,7 @@
             </div>
             <div class="campo">
                 <a href="index.html" class="voltar">Voltar</a>
+                <a href="resultado/jurado.php" class="link">Ver suas notas</a>
             </div>
         </article>
     </main>
