@@ -20,5 +20,3 @@ create table votos (
 
 alter table votos add FOREIGN KEY (id_participante) REFERENCES participantes(id);
 alter table votos add FOREIGN KEY (id_jurado) REFERENCES jurados(id);
-
-simpatia, charme, elegancia, desenvoltura
