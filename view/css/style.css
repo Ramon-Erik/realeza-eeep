@@ -49,6 +49,7 @@ main h1 {
     margin-bottom: 7px;
 } 
 
+main a.link,
 main a.voltar {
     display: inline-block;
     padding: 5px;
@@ -59,10 +60,21 @@ main a.voltar {
     color: white;
 }
 
+main a.link {
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    margin-left: 30px;
+}
+
 main div.container-tabela {
     width: calc(100% - 10px);
     margin: 10px auto;
     overflow-y: auto;
+}
+
+main table.tabela-jurado tbody tr:nth-child(odd) {
+    background: #c1c1c178;
 }
 
 main table {
