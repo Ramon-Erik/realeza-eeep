@@ -22,29 +22,41 @@ Class Votacao {
         // echo $id_participante;
     }
     public function vencedor() {
-        $vencedoras = "SELECT participantes.id as p_id, participantes.nome AS nome_participante, participantes.sexo, SUM(votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura) AS soma_total_notas FROM votos JOIN participantes ON votos.id_participante = participantes.id WHERE participantes.sexo = 'F' GROUP BY participantes.nome, participantes.sexo ORDER BY soma_total_notas DESC LIMIT 2;";
+        $vencedoras = "SELECT participantes.id as p_id, participantes.nome AS nome_participante, participantes.sexo, SUM(votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura) AS soma_total_notas FROM votos JOIN participantes ON votos.id_participante = participantes.id WHERE participantes.sexo = 'F' GROUP BY participantes.nome, participantes.sexo ORDER BY soma_total_notas DESC LIMIT 3;";
         $lista_vencedoras = $this->pdo->prepare($vencedoras);
         $lista_vencedoras->execute();
         $i = 0;
         foreach ($lista_vencedoras as $v) {
-            if ($i === 0) {
-                $lista_final['rainha'] = $v['nome_participante']; 
-            } else {
-                $lista_final['princesa'] = $v['nome_participante']; 
+            switch ($i) {
+                case 0:
+                    $lista_final['rainha'] = $v['nome_participante']; 
+                    break;
+                case 1:
+                    $lista_final['princesa'] = $v['nome_participante']; 
+                    break;
+                case 2:
+                    $lista_final['terceira'] = $v['nome_participante']; 
+                    break;
             }
             $i++;
             // echo $v['nome_participante'];
         }
-        $vencedores = "SELECT participantes.id as p_id, participantes.nome AS nome_participante, participantes.sexo, SUM(votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura) AS soma_total_notas FROM votos JOIN participantes ON votos.id_participante = participantes.id WHERE participantes.sexo = 'M' GROUP BY participantes.nome, participantes.sexo ORDER BY soma_total_notas DESC LIMIT 2;";
+        $vencedores = "SELECT participantes.id as p_id, participantes.nome AS nome_participante, participantes.sexo, SUM(votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura) AS soma_total_notas FROM votos JOIN participantes ON votos.id_participante = participantes.id WHERE participantes.sexo = 'M' GROUP BY participantes.nome, participantes.sexo ORDER BY soma_total_notas DESC LIMIT 3;";
         $lista_vencedores = $this->pdo->prepare($vencedores);
         $lista_vencedores->execute();
         $i = 0;
         // echo '<pre>';
         foreach ($lista_vencedores as $v) {
-            if ($i === 0) {
-                $lista_final['rei'] = $v['nome_participante']; 
-            } else {
-                $lista_final['principe'] = $v['nome_participante']; 
+            switch ($i) {
+                case 0:
+                    $lista_final['rei'] = $v['nome_participante']; 
+                    break;
+                case 1:
+                    $lista_final['principe'] = $v['nome_participante']; 
+                    break;
+                case 2:
+                    $lista_final['terceiro'] = $v['nome_participante']; 
+                    break;
             }
             $i++;
             // echo $v['nome_participante'] . $lista_vencedores->rowCount();
@@ -59,7 +71,7 @@ Class Votacao {
         $consulta_feita_f->execute();
         $vencedores = $this->vencedor();
         $vencedores = $this->vencedor();
-        if (sizeof($vencedores) !== 4) {
+        if (sizeof($vencedores) !== 6) {
             echo '<p class="aviso">&#9888; Verifique se todos desfilaram e se todos os jurados votaram...</p>';
         }
         if ($consulta_feita_f) {
@@ -86,6 +98,9 @@ Class Votacao {
                     $tipo = 'principe';
                     // echo "<script>$linha[nome_participante] $vencedores[princesa]</script>";
                 }
+                if (isset($vencedores['terceiro']) and $linha['nome_participante'] === $vencedores['terceiro']) {
+                    $tipo = 'terceiro';
+                }
                 echo "<tr class=\"$tipo\">";
                 echo "<td class=\"dt-body-left\">$linha[nome_participante]</td>";
                 echo "<td>$linha[J1]</td>";
@@ -111,7 +126,7 @@ Class Votacao {
         $consulta_feita_m->execute();
         $vencedores = $this->vencedor();
         $vencedores = $this->vencedor();
-        if (sizeof($vencedores) !== 4) {
+        if (sizeof($vencedores) !== 6) {
             echo '<p class="aviso">&#9888; Verifique se todos desfilaram e se todos os jurados votaram...</p>';
         }
         if ($consulta_feita_m) {
@@ -137,6 +152,9 @@ Class Votacao {
                 if (isset($vencedores['princesa']) and $linha['nome_participante'] === $vencedores['princesa']) {
                     $tipo = 'princesa';
                     // echo "<script>$linha[nome_participante] $vencedores[principe]</script>";
+                }
+                if (isset($vencedores['terceira']) and $linha['nome_participante'] === $vencedores['terceira']) {
+                    $tipo = 'terceira';
                 }
                 echo "<tr class=\"$tipo\">";
                 echo "<td class=\"dt-body-left\">$linha[nome_participante]</td>";

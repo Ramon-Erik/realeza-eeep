@@ -102,9 +102,15 @@ main table tr.rainha {
     background: #fdeda8;
 }
 
+
 main table tr.principe,
 main table tr.princesa {
     background: #fef8dc;
+}
+
+main table tr.terceiro,
+main table tr.terceira {
+    background: #c1c1c178;
 }
 
 main table td:not(:last-child) {
