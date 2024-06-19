@@ -5,7 +5,7 @@ Class Votacao {
         $this->pdo = new pdo("mysql:host=localhost; dbname=realeza_eeep", "root", "");
     }
     public function votar($id_jurado, $id_participante, array $notas) {
-        $consulta = "INSERT INTO votosALUES (null, :id_participante, :id_jurado,  :nota_simpatia, :nota_charme, :nota_elegancia, :nota_desenvoltura);";
+        $consulta = "INSERT INTO votos VALUES (null, :id_participante, :id_jurado,  :nota_simpatia, :nota_charme, :nota_elegancia, :nota_desenvoltura);";
         $consulta_feita = $this->pdo->prepare($consulta);
         $consulta_feita->bindValue(":id_participante", $id_participante);
         $consulta_feita->bindValue(":id_jurado", $id_jurado);
@@ -14,6 +14,8 @@ Class Votacao {
         $consulta_feita->bindValue(":nota_elegancia", $notas[2]);
         $consulta_feita->bindValue(":nota_desenvoltura", $notas[3]);
         $consulta_feita->execute();
+        session_start();
+        $_SESSION['id_jurado'] = $id_jurado;
         header('location: ../view/sucesso.php');
         // echo '<pre>' . print_r($notas);
         // echo $id_jurado;
@@ -154,19 +156,22 @@ Class Votacao {
             echo '<p>Parece que ainda não há votações.</p>';
         }
     }
-    public function resultado_jurado($id_jurado) {
-        $consulta = "SELECT participantes.nome as p_nome, votos.nota_simpatia as n1, votos.nota_charme as n2, votos.nota_elegancia as n3, votos.nota_desenvoltura as n4 FROM votos inner join participantes on participantes.id = votos.id_participante where :id_jurado = votos.id_jurado;";
+    public function resultado_jurado() {
+        $consulta = "SELECT participantes.nome as p_nome, votos.nota_simpatia as n1, votos.nota_charme as n2, votos.nota_elegancia as n3, votos.nota_desenvoltura as n4, votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura AS total FROM votos inner join participantes on participantes.id = votos.id_participante where votos.id_jurado = :id_jurado;";
+        session_start();$id_jurado = 
+        $_SESSION['id_jurado'];
         $consulta_feita = $this->pdo->prepare($consulta);
         $consulta_feita->bindValue(":id_jurado", $id_jurado);
         $consulta_feita->execute();
         if ($consulta_feita) {
-            echo '<table>';
+            echo '<table class="tabela-jurado">';
             echo '<thead><tr>';
             echo '<th>Participante</th>';
-            echo '<th>Nota 1</th>';
-            echo '<th>Nota 2</th>';
-            echo '<th>Nota 3</th>';
-            echo '<th>Nota 4</th>';
+            echo '<th>Simpatia</th>';
+            echo '<th>Charme</th>';
+            echo '<th>Elegância</th>';
+            echo '<th>Desenvoltura</th>';
+            echo '<th>total</th>';
             echo '</tr></thead>';
             foreach ($consulta_feita as $linha) {
                 echo "<tr><td>$linha[p_nome]</td>";
@@ -174,6 +179,7 @@ Class Votacao {
                 echo "<td>$linha[n2]</td>";
                 echo "<td>$linha[n3]</td>";
                 echo "<td>$linha[n4]</td>";
+                echo "<td>$linha[total]</td>";
                 echo '</tr>';
             }
             echo '</table>';
