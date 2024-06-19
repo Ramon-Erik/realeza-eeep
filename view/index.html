@@ -19,7 +19,7 @@
                 <h1>Votação Realeza Salaberga 2024</h1>
             </div>
         </div>
-        <form action="../control/controle-index.php" method="post">
+        <form action="../control/controle-index.php" method="post" id="voto">
             <div class="campo">
                 <div class="linha">
                     <h2>Sobre você</h2>
@@ -194,7 +194,8 @@
                             </div>
                         </div>
                         <div class="btns-dialog">
-                            <input type="submit" name="btnE" value="Enviar">
+                            <input type="submit" id="btnEnviarId" name="btnE" value="Enviar">
+                            <input type="hidden" name="btnE" value="Enviar">
                             <button type="button" id="btnCancelarId">Cancelar</button>
                         </div>
                     </dialog>

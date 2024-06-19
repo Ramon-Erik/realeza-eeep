@@ -31,3 +31,13 @@ window.addEventListener('click', (event) => {
         modalErro.close();
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('#voto');
+    const submitButton = document.querySelector('#btnEnviarId');
+
+    form.addEventListener('submit', function(event) {
+        submitButton.disabled = true;
+        submitButton.value = 'Enviando...';
+    });
+});
