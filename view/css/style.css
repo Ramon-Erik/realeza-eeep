@@ -70,6 +70,16 @@ main table {
     border-collapse: collapse;
 }
 
+main table.dataTable thead > tr > th.dt-orderable-asc, 
+main table.dataTable thead > tr > th.dt-orderable-desc {
+    padding-right: 0;
+    text-align: left;
+}
+
+main table.dataTable thead > tr > th.dt-orderable-asc > span.dt-column-order{
+    right: 0px;
+}
+
 main table caption {
     font-weight: bold;
     font-size: 1.3rem;

@@ -61,7 +61,7 @@ Class Votacao {
             echo '<p class="aviso">&#9888; Verifique se todos desfilaram e se todos os jurados votaram...</p>';
         }
         if ($consulta_feita_f) {
-            echo '<table>';
+            echo '<table class="cell-border">';
             echo '<caption>Homens</caption>';
             echo '<thead><tr>';
             echo '<th>Participante</th>';
@@ -111,7 +111,7 @@ Class Votacao {
             echo '<p class="aviso">&#9888; Verifique se todos desfilaram e se todos os jurados votaram...</p>';
         }
         if ($consulta_feita_m) {
-            echo '<table>';
+            echo '<table class="cell-border">';
             echo '<caption>Mulheres</caption>';
             echo '<thead><tr>';
             echo '<th>Participante</th>';
