@@ -25,7 +25,7 @@
                 <p>Seus votos forma adicionados com sucesso</p>
             </div>
             <div class="campo">
-                <a href="index.html" class="voltar">Voltar</a>
+                <a href="index.php" class="voltar">Voltar</a>
                 <a href="resultado/jurado.php" class="link">Ver suas notas</a>
             </div>
         </article>
