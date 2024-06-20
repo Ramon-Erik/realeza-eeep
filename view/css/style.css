@@ -1,7 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --cor-bg-btn-modal: #0084ff;
+    --cor-bg-btn-modal: #0a2b58;
+    --cor-tr-rei-rainha: #fdeda8;
+    --cor-bg-body: #0a2b5821;
+    --cor-main: #0a2b58;
+    --cor-tr-principe-princesa: #fef8dc;
+    --cor-tr-zebrada: #c1c1c178;
+    --cor-tr-terceiro-terceira: #c1c1c178;
 }
 
 * {
@@ -13,7 +19,7 @@
 body {
     padding: 0 20px;
     font-family: 'Inter', sans-serif;
-    background-color: #e9e9e9;
+    background-color: var(--cor-bg-body);
 }
 
 button, input[type=submit], input[type=reset] {
@@ -35,7 +41,7 @@ main {
     margin: 15px auto 75px auto;
     max-width: 550px;
     padding: 10px;
-    border-top: 10px solid #903234;
+    border-top: 10px solid var(--cor-main);
     border-radius: 10px;
     background-color: white;
 }
@@ -55,7 +61,7 @@ main a.voltar {
     padding: 5px;
     border: 1px solid gray;
     border-radius: 10px;
-    background: #903234;
+    background: var(--cor-main);
     text-decoration: none;
     color: white;
 }
@@ -74,7 +80,7 @@ main div.container-tabela {
 }
 
 main table.tabela-jurado tbody tr:nth-child(odd) {
-    background: #c1c1c178;
+    background: var(--cor-tr-zebrada);
 }
 
 main table {
@@ -99,18 +105,21 @@ main table caption {
 
 main table tr.rei,
 main table tr.rainha {
-    background: #fdeda8;
+    background: var(--cor-tr-rei-rainha);
 }
 
+main caption .aviso {
+    font-size: 1rem;
+}
 
 main table tr.principe,
 main table tr.princesa {
-    background: #fef8dc;
+    background: var(--cor-tr-principe-princesa);
 }
 
 main table tr.terceiro,
 main table tr.terceira {
-    background: #c1c1c178;
+    background: var(--cor-tr-terceiro-terceira);
 }
 
 main table td:not(:last-child) {
@@ -172,13 +181,13 @@ form .btn {
 
 form .enviar {
     padding: 10px;
-    background-color: #903234;
+    background-color: var(--cor-main);
     color: white;
 }
 
 form .limpar {
     font-weight: bold;
-    color: #903234;
+    color: var(--cor-main);
 }
 
 dialog,
