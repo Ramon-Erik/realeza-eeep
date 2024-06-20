@@ -29,6 +29,9 @@
             $resultado->resultado_geral_f();
             ?>
         </div>
+        <div class="campo" style="text-align: center;">
+            <a href="index.php" class="voltar">Votar novamente</a>
+        </div>
     </main>
     <footer>
         <p>Site desenvolvido por <a href="https://instagram.com/29erik_" target="_blank" rel="noopener noreferrer">Ramon Erik (Informática 2022-2024)</a></p>
