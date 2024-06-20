@@ -5,18 +5,27 @@ Class Votacao {
         $this->pdo = new pdo("mysql:host=localhost; dbname=realeza_eeep", "root", "");
     }
     public function votar($id_jurado, $id_participante, array $notas) {
-        $consulta = "INSERT INTO votos VALUES (null, :id_participante, :id_jurado,  :nota_simpatia, :nota_charme, :nota_elegancia, :nota_desenvoltura);";
-        $consulta_feita = $this->pdo->prepare($consulta);
-        $consulta_feita->bindValue(":id_participante", $id_participante);
-        $consulta_feita->bindValue(":id_jurado", $id_jurado);
-        $consulta_feita->bindValue(":nota_simpatia", $notas[0]);
-        $consulta_feita->bindValue(":nota_charme", $notas[1]);
-        $consulta_feita->bindValue(":nota_elegancia", $notas[2]);
-        $consulta_feita->bindValue(":nota_desenvoltura", $notas[3]);
-        $consulta_feita->execute();
-        session_start();
-        $_SESSION['id_jurado'] = $id_jurado;
-        header('location: ../view/sucesso.php');
+        $consulta = "SELECT * FROM votos WHERE id_jurado = :id_jurado and id_participante = :id_participante";
+        $select_v = $this->pdo->prepare($consulta);
+        $select_v->bindValue(":id_participante", $id_participante);
+        $select_v->bindValue(":id_jurado", $id_jurado);
+        $select_v->execute();
+        if ($select_v->rowCount() === 0) {
+            $consulta = "INSERT INTO votos VALUES (null, :id_participante, :id_jurado,  :nota_simpatia, :nota_charme, :nota_elegancia, :nota_desenvoltura);";
+            $consulta_feita = $this->pdo->prepare($consulta);
+            $consulta_feita->bindValue(":id_participante", $id_participante);
+            $consulta_feita->bindValue(":id_jurado", $id_jurado);
+            $consulta_feita->bindValue(":nota_simpatia", $notas[0]);
+            $consulta_feita->bindValue(":nota_charme", $notas[1]);
+            $consulta_feita->bindValue(":nota_elegancia", $notas[2]);
+            $consulta_feita->bindValue(":nota_desenvoltura", $notas[3]);
+            $consulta_feita->execute();
+            session_start();
+            $_SESSION['id_jurado'] = $id_jurado;
+            header('location: ../view/sucesso.php');
+        } else {
+            header('location: ../view/erro.php?err_id=1');
+        }
         // echo '<pre>' . print_r($notas);
         // echo $id_jurado;
         // echo $id_participante;
