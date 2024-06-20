@@ -30,8 +30,9 @@
             ?>
         </div>
     </main>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> -->
+    <footer>
+        <p>Site desenvolvido por <a href="https://instagram.com/29erik_" target="_blank" rel="noopener noreferrer">Ramon Erik (Informática 2022-2024)</a></p>
+    </footer>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
     <script>
         // let table = new DataTable('table.display');
