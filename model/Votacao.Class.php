@@ -126,12 +126,13 @@ Class Votacao {
         $consulta_feita_m->execute();
         $vencedores = $this->vencedor();
         $vencedores = $this->vencedor();
-        if (sizeof($vencedores) !== 6) {
-            echo '<p class="aviso">&#9888; Verifique se todos desfilaram e se todos os jurados votaram...</p>';
-        }
         if ($consulta_feita_m) {
             echo '<table class="cell-border">';
-            echo '<caption>Mulheres</caption>';
+            if (sizeof($vencedores) !== 6) {
+                echo '<caption><p>Mulheres</p><p class="aviso">&#9888; Verifique se todos desfilaram e se todos os jurados votaram...</p></caption>';
+            } else {
+                echo '<caption>Mulheres</caption>';
+            }
             echo '<thead><tr>';
             echo '<th>Participante</th>';
             echo '<th>J-1</th>';
