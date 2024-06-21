@@ -10,7 +10,7 @@ Class Votacao {
         $select_v->bindValue(":id_participante", $id_participante);
         $select_v->bindValue(":id_jurado", $id_jurado);
         $select_v->execute();
-        if ($select_v->rowCount() === 0 and $id_participante === 'none') {
+        if ($select_v->rowCount() === 0 and $id_participante !== 'none') {
             $consulta = "INSERT INTO votos VALUES (null, :id_participante, :id_jurado,  :nota_simpatia, :nota_charme, :nota_elegancia, :nota_desenvoltura);";
             $consulta_feita = $this->pdo->prepare($consulta);
             $consulta_feita->bindValue(":id_participante", $id_participante);
@@ -24,10 +24,14 @@ Class Votacao {
             $_SESSION['id_jurado'] = $id_jurado;
             header('location: ../view/sucesso.php?s_id=2');
         } else {
-            if ($id_participante === 'none') {
-                header('location: ../view/erro.php?err_id=2');
-            }
-            header('location: ../view/erro.php?err_id=1');
+            switch ($id_participante) {
+                case 'none':
+                    header('location: ../view/erro.php?err_id=2');
+                    break;
+                case '2':
+                    header('location: ../view/erro.php?err_id=1');
+                    break;
+            } 
         }
         // echo '<pre>' . print_r($notas);
         // echo $id_jurado;
@@ -194,7 +198,7 @@ Class Votacao {
         $consulta_feita = $this->pdo->prepare($consulta);
         $consulta_feita->bindValue(":id_jurado", $id_jurado);
         $consulta_feita->execute();
-        if ($consulta_feita) {
+        if ($consulta_feita->rowCount()) {
             echo '<table class="tabela-jurado">';
             echo '<thead><tr>';
             echo '<th>Participante</th>';
@@ -215,7 +219,7 @@ Class Votacao {
             }
             echo '</table>';
         } else {
-            echo '<p>Parece que ainda não há votações.</p>';
+            echo '<p style="text-align: center;">Parece que ainda não há votações.</p>';
         }
 
     }
