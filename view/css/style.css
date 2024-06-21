@@ -22,7 +22,9 @@ body {
     background-color: var(--cor-bg-body);
 }
 
-button, input[type=submit], input[type=reset] {
+button,
+input[type=submit],
+input[type=reset] {
     cursor: pointer;
 }
 
@@ -31,7 +33,7 @@ header {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    margin: 10vh auto 0 auto; 
+    margin: 10vh auto 0 auto;
     max-width: 550px;
     height: 150px;
     border-radius: 20px;
@@ -46,6 +48,10 @@ main {
     background-color: white;
 }
 
+main.margin-b {
+    margin: 15px auto 10px auto;
+}
+
 main div.linha-cab {
     padding-bottom: 15px;
     border-bottom: 1px solid black;
@@ -53,7 +59,7 @@ main div.linha-cab {
 
 main h1 {
     margin-bottom: 7px;
-} 
+}
 
 main a.link,
 main a.voltar {
@@ -88,13 +94,13 @@ main table {
     border-collapse: collapse;
 }
 
-main table.dataTable thead > tr > th.dt-orderable-asc, 
-main table.dataTable thead > tr > th.dt-orderable-desc {
+main table.dataTable thead>tr>th.dt-orderable-asc,
+main table.dataTable thead>tr>th.dt-orderable-desc {
     padding-right: 0;
     text-align: left;
 }
 
-main table.dataTable thead > tr > th.dt-orderable-asc > span.dt-column-order{
+main table.dataTable thead>tr>th.dt-orderable-asc>span.dt-column-order {
     right: 0px;
 }
 
@@ -125,6 +131,7 @@ main table tr.terceira {
 main table td:not(:last-child) {
     border-right: 1px solid gray;
 }
+
 main table th {
     padding: 10px;
 }
@@ -153,15 +160,91 @@ form div.linha {
     margin: 8px;
 }
 
-form div.area-btn {
+form input[type=text] {
+    width: calc(100% - 20px);
+    height: 30px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1.12rem;
+    transition: all ease-in .15s;
+}
+
+form input[type=text]:focus {
+    border: 1px solid transparent;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px var(--cor-main);
+    box-shadow: inset 0 0 1px #dbdfe5, 0 0 9px var(--cor-main);
+}
+
+form select,
+form option {
+    width: calc(100% - 10px);
+}
+
+form select {
+    background-color: white;
+    border: thin solid blue;
+    border-radius: 4px;
+    display: inline-block;
+    font: inherit;
+    line-height: 1.5em;
+    padding: 0.5em 3.5em 0.5em 1em;
+
+    /* reset */
+
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+select.classic {
+    background-image:
+        linear-gradient(45deg, transparent 50%, blue 50%),
+        linear-gradient(135deg, blue 50%, transparent 50%),
+        linear-gradient(to right, skyblue, skyblue);
+    background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px),
+        100% 0;
+    background-size:
+        5px 5px,
+        5px 5px,
+        2.5em 2.5em;
+    background-repeat: no-repeat;
+}
+
+select.classic:focus {
+    background-image:
+        linear-gradient(45deg, white 50%, transparent 50%),
+        linear-gradient(135deg, transparent 50%, white 50%),
+        linear-gradient(to right, gray, gray);
+    background-position:
+        calc(100% - 15px) 1em,
+        calc(100% - 20px) 1em,
+        100% 0;
+    background-size:
+        5px 5px,
+        5px 5px,
+        2.5em 2.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+    outline: 0;
+}
+
+
+form div.linha.btns {
     position: relative;
+    height: 0;
 }
 
 form .area-btn {
     position: absolute;
     width: calc(100% + 10px);
 
-    bottom: -40px;
+    bottom: -20px;
     left: -5px;
 
     transform: translateY(100%);
@@ -216,7 +299,7 @@ dialog .btns-dialog {
     margin-top: 10px;
 }
 
-dialog .btns-dialog button, 
+dialog .btns-dialog button,
 dialog .btns-dialog input[type=submit] {
     padding: 10px;
     border: 1px solid gray;
@@ -238,6 +321,7 @@ footer a {
     color: black;
     margin-left: 19px;
 }
+
 footer a:before {
     content: '🔗';
     display: block;
