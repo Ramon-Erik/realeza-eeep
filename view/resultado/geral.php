@@ -39,9 +39,19 @@
     </footer>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
     <script>
-        // let table = new DataTable('table.display');
-        // table
-        // var DataTable = require( 'datatables.net' );
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const tabelas = document.querySelectorAll('.container-tabela');
+                tabelas.forEach((el) => {
+                    console.log(el);
+                    el.scroll({
+                        top: 0,
+                        left: 220,
+                        behavior: "smooth",
+                    });
+                });
+            }, 1200);
+        });
         var table = new DataTable('table.cell-border', {
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/2.0.8/i18n/pt-BR.json',
