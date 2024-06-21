@@ -33,10 +33,9 @@
                             break;
                     } 
                 } else {
-                    echo '<p>algo deu errado</p>';
+                    header('location:index.php');
                 }
                 ?>
-                <p>Seus votos forma adicionados com sucesso</p>
             </div>
             <div class="campo">
                 <a href="index.php" class="voltar">Voltar</a>
