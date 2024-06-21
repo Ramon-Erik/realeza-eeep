@@ -21,3 +21,11 @@ create table votos (
 
 alter table votos add FOREIGN KEY (id_participante) REFERENCES participantes(id);
 alter table votos add FOREIGN KEY (id_jurado) REFERENCES jurados(id);
+
+UPDATE `jurados` SET `nome` = 'Bruna Fly' WHERE `jurados`.`id` = 1;
+UPDATE `jurados` SET `nome` = 'Daniel Mesquita' WHERE `jurados`.`id` = 2;
+UPDATE `jurados` SET `nome` = 'Driellly Sanny' WHERE `jurados`.`id` = 3;
+UPDATE `jurados` SET `nome` = 'Maju Moura' WHERE `jurados`.`id` = 4;
+UPDATE `jurados` SET `nome` = 'Mariana Freritas' WHERE `jurados`.`id` = 5;
+UPDATE `jurados` SET `nome` = 'Mariana Cruz' WHERE `jurados`.`id` = 6;
+UPDATE `jurados` SET `nome` = 'Samuel freitas' WHERE `jurados`.`id` = 7;
