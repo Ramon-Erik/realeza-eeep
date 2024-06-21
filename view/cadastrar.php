@@ -37,13 +37,18 @@
                     </select>
                 </div>
                 <div class="campo">
-                    <div class="area-btn">
-                        <input type="submit" name="btnCad" value="Enviar" class="btn enviar">
-                        <input type="reset" value="Limpar" class="btn limpar">
+                    <div class="linha btns">
+                        <div class="area-btn">
+                            <input type="submit" name="btnCad" value="Enviar" class="btn enviar">
+                            <input type="reset" value="Limpar" class="btn limpar">
+                        </div>
                     </div>
                 </div>
             </div>
         </form>
     </main>
+    <footer>
+        <p>Site desenvolvido por <a href="https://instagram.com/29erik_" target="_blank" rel="noopener noreferrer">Ramon Erik (Informática 2022-2024)</a></p>
+    </footer>
 </body>
 </html>
