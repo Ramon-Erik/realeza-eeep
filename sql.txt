@@ -1,11 +1,12 @@
 create table jurados ( 
     id int primary key not null auto_increment, 
-    nome varchar(90) 
+    nome varchar(250) 
 );
 
 create table participantes ( 
     id int primary key not null auto_increment, 
-    nome varchar(90) 
+    nome varchar(250),
+    sexo enum('F', 'M')
 );
 
 create table votos ( 
