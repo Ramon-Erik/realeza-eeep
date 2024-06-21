@@ -11,7 +11,7 @@
     <header></header>
     <main class="margin-b">
         <article>
-            <h1>Suas notas</h1>
+            <h1><span id="nomeJurado"></span>, suas notas</h1>
         </article>
         <div class="container-tabela">
             <?php
@@ -27,5 +27,6 @@
     <footer>
         <p>Site desenvolvido por <a href="https://instagram.com/29erik_" target="_blank" rel="noopener noreferrer">Ramon Erik (Informática 2022-2024)</a></p>
     </footer>
+    <script src="../js/nomeJurado.js"></script>
 </body>
 </html>

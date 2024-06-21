@@ -28,13 +28,13 @@
                 </div>
                 <div class="linha">
                     <select name="jurado" id="juradoId" class="classic">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
+                        <option value="1">Bruna Fly</option>
+                        <option value="2">Daniel Mesquita</option>
+                        <option value="3">Drielly Sanny</option>
+                        <option value="4">Maju Moura</option>
+                        <option value="5">Mariana Freitas</option>
+                        <option value="6">Mariana Cruz</option>
+                        <option value="7">Samuel Freitas</option>
                     </select>
                 </div>
             </div>
@@ -209,7 +209,7 @@
                     <dialog id="confirmarId">
                         <div class="cabecalho">
                             <div class="linha-cab">
-                                <h3>Deseja realmente enviar?</h3>
+                                <h3><span id="nomeJurado"></span>, deseja realmente enviar?</h3>
                                 <h4>Resumo das notas:</h4>
                             </div>
                         </div>

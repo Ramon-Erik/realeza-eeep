@@ -20,7 +20,7 @@
         </div>
         <article>
             <div class="suc-campo">
-                <h2>Erro</h2>
+                <h2><span id="nomeJurado"></span>, deu erro :&#40;</h2>
                 <?php 
                 if (isset($_GET['err_id'])) {
                     switch ($_GET['err_id']) {
@@ -45,5 +45,6 @@
     <footer>
         <p>Site desenvolvido por <a href="https://instagram.com/29erik_" target="_blank" rel="noopener noreferrer">Ramon Erik (Informática 2022-2024)</a></p>
     </footer>
+    <script src="js/nomeJurado.js"></script>
 </body>
 </html>

@@ -6,6 +6,8 @@ const jurado = document.querySelector('#juradoId');
 
 btnConfirmarEnvio.addEventListener('click', () => {
     const radios = document.querySelectorAll('input[type=radio]:checked');
+    const nomeJuradoSpan = document.querySelector('#nomeJurado');
+    nomeJuradoSpan.innerText = jurado.children[jurado.selectedIndex].textContent;
     if (radios.length === 4) {
         const notas = document.querySelectorAll('span.nota')
         const totalSpan = document.querySelector('span.nota-total')
