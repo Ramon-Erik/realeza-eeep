@@ -8,7 +8,7 @@
 </head>
 <body>
     <header></header>
-    <main>
+    <main class="margin-b">
         <article>
             <h1>Suas notas</h1>
         </article>
@@ -20,7 +20,7 @@
             ?>
         </div>
         <div class="campo" style="text-align: center;">
-            <a href="index.php" class="voltar">Votar novamente</a>
+            <a href="../index.php" class="voltar">Votar novamente</a>
         </div>
     </main>
     <footer>
