@@ -52,6 +52,14 @@ main.margin-b {
     margin: 15px auto 10px auto;
 }
 
+main .campo label {
+    font-size: 1rem;
+}
+
+main div.campo-radio label {
+    font-size: 1.3rem;
+}
+
 main div.linha-cab {
     padding-bottom: 15px;
     border-bottom: 1px solid black;
@@ -85,19 +93,30 @@ main div.container-tabela {
     overflow-y: auto;
 }
 
-main table.tabela-jurado tbody tr:nth-child(odd) {
-    background: var(--cor-tr-zebrada);
+main table {
+    margin: 0;
+    border-collapse: collapse;
 }
 
-main table {
-    margin: auto;
-    border-collapse: collapse;
+main table thead tr th {
+    white-space: nowrap;
+}
+
+main table thead tr th:not(:first-child) {
+    padding-right: 20px;
+}
+
+main table.tabela-jurado tbody tr:nth-child(even) {
+    background: var(--cor-tr-zebrada);
 }
 
 main table.dataTable thead>tr>th.dt-orderable-asc,
 main table.dataTable thead>tr>th.dt-orderable-desc {
-    padding-right: 0;
     text-align: left;
+}
+
+main table.dataTable td.dt-type-numeric {
+    text-align: center;
 }
 
 main table.dataTable thead>tr>th.dt-orderable-asc>span.dt-column-order {
@@ -138,8 +157,19 @@ main table th {
 
 main table td {
     padding: 10px;
-    text-align: center;
+    white-space: nowrap;
     vertical-align: middle;
+}
+
+main div.dt-container div.dt-layout-row {
+    display: flex;
+    justify-content: space-around;
+    width: 954px;
+}
+
+main table td:not(:first-child) {
+    text-align: center;
+
 }
 
 main article {
@@ -216,24 +246,11 @@ select.classic {
     background-repeat: no-repeat;
 }
 
-select.classic:focus {
-    background-image:
-        linear-gradient(45deg, white 50%, transparent 50%),
-        linear-gradient(135deg, transparent 50%, white 50%),
-        linear-gradient(to right, gray, gray);
-    background-position:
-        calc(100% - 15px) 1em,
-        calc(100% - 20px) 1em,
-        100% 0;
-    background-size:
-        5px 5px,
-        5px 5px,
-        2.5em 2.5em;
+select.classic:active {
     background-repeat: no-repeat;
     border-color: grey;
     outline: 0;
 }
-
 
 form div.linha.btns {
     position: relative;
@@ -312,8 +329,9 @@ dialog .btns-dialog button {
 }
 
 footer {
-    font-size: .8rem;
+    font-size: 1.1rem;
     text-align: center;
+    margin-bottom: 15px;
 }
 
 footer a {

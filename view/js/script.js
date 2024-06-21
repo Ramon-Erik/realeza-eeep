@@ -2,6 +2,7 @@ const btnConfirmarEnvio = document.querySelector('#btnAtivarModalId');
 const btnCancelarEnvio = document.querySelector('#btnCancelarId');
 const modalConf = document.querySelector('#confirmarId');
 const modalErro = document.querySelector('#erroId');
+const jurado = document.querySelector('#juradoId');
 
 btnConfirmarEnvio.addEventListener('click', () => {
     const radios = document.querySelectorAll('input[type=radio]:checked');
@@ -35,8 +36,12 @@ window.addEventListener('click', (event) => {
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('#voto');
     const submitButton = document.querySelector('#btnEnviarId');
+    if (localStorage.getItem('jurado') !== null) {
+        jurado.value = localStorage.getItem('jurado');
+    }
 
     form.addEventListener('submit', function(event) {
+        localStorage.setItem('jurado', jurado.value);
         submitButton.disabled = true;
         submitButton.value = 'Enviando...';
     });

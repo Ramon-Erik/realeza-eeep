@@ -10,7 +10,10 @@ Class Votacao {
         $select_v->bindValue(":id_participante", $id_participante);
         $select_v->bindValue(":id_jurado", $id_jurado);
         $select_v->execute();
+        echo 'na classe' . $select_v->rowCount();
+
         if ($select_v->rowCount() === 0 and $id_participante !== 'none') {
+            echo 'no if';
             $consulta = "INSERT INTO votos VALUES (null, :id_participante, :id_jurado,  :nota_simpatia, :nota_charme, :nota_elegancia, :nota_desenvoltura);";
             $consulta_feita = $this->pdo->prepare($consulta);
             $consulta_feita->bindValue(":id_participante", $id_participante);
@@ -24,12 +27,12 @@ Class Votacao {
             $_SESSION['id_jurado'] = $id_jurado;
             header('location: ../view/sucesso.php?s_id=2');
         } else {
+            if ($select_v->rowCount() >= 1) {
+                header('location: ../view/erro.php?err_id=1');
+            }
             switch ($id_participante) {
                 case 'none':
                     header('location: ../view/erro.php?err_id=2');
-                    break;
-                case '2':
-                    header('location: ../view/erro.php?err_id=1');
                     break;
             } 
         }
@@ -42,57 +45,62 @@ Class Votacao {
         $lista_vencedoras = $this->pdo->prepare($vencedoras);
         $lista_vencedoras->execute();
         $i = 0;
-        foreach ($lista_vencedoras as $v) {
+        if ($lista_vencedoras->rowCount()) {
+            foreach ($lista_vencedoras as $v) {
             switch ($i) {
                 case 0:
-                    $lista_final['rainha'] = $v['nome_participante']; 
+                    $lista_final['rainha'] = urldecode($v['nome_participante']); 
                     break;
                 case 1:
-                    $lista_final['princesa'] = $v['nome_participante']; 
+                    $lista_final['princesa'] = urldecode($v['nome_participante']); 
                     break;
                 case 2:
-                    $lista_final['terceira'] = $v['nome_participante']; 
+                    $lista_final['terceira'] = urldecode($v['nome_participante']); 
                     break;
             }
             $i++;
-            // echo $v['nome_participante'];
+            }
+        } else {
+            $lista_final['v_a'] = 'null'; 
         }
         $vencedores = "SELECT participantes.id as p_id, participantes.nome AS nome_participante, participantes.sexo, SUM(votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura) AS soma_total_notas FROM votos JOIN participantes ON votos.id_participante = participantes.id WHERE participantes.sexo = 'M' GROUP BY participantes.nome, participantes.sexo ORDER BY soma_total_notas DESC LIMIT 3;";
         $lista_vencedores = $this->pdo->prepare($vencedores);
         $lista_vencedores->execute();
         $i = 0;
-        // echo '<pre>';
-        foreach ($lista_vencedores as $v) {
-            switch ($i) {
-                case 0:
-                    $lista_final['rei'] = $v['nome_participante']; 
-                    break;
-                case 1:
-                    $lista_final['principe'] = $v['nome_participante']; 
-                    break;
-                case 2:
-                    $lista_final['terceiro'] = $v['nome_participante']; 
-                    break;
+        if ($lista_vencedores->rowCount()) {
+            foreach ($lista_vencedores as $v) {
+                switch ($i) {
+                    case 0:
+                        $lista_final['rei'] = urldecode($v['nome_participante']); 
+                        break;
+                    case 1:
+                        $lista_final['principe'] = urldecode($v['nome_participante']); 
+                        break;
+                    case 2:
+                        $lista_final['terceiro'] = urldecode($v['nome_participante']); 
+                        break;
+                }
+                $i++;
             }
-            $i++;
-            // echo $v['nome_participante'] . $lista_vencedores->rowCount();
+        } else {
+            $lista_final['v_e'] = 'null'; 
         }
-        // print_r($lista_final);
         return $lista_final;
     }
     public function resultado_geral_m() {
-        $consulta_f = "SELECT participantes.nome AS nome_participante,  SUM(CASE WHEN votos.id_jurado = 1 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J1,  SUM(CASE WHEN votos.id_jurado = 2 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J2,  SUM(CASE WHEN votos.id_jurado = 3 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J3,  SUM(CASE WHEN votos.id_jurado = 4 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J4,  SUM(CASE WHEN votos.id_jurado = 5 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J5,  SUM(CASE WHEN votos.id_jurado = 6 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J6,  SUM(CASE WHEN votos.id_jurado = 7 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J7, SUM(votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura) AS total FROM votos JOIN participantes ON votos.id_participante = participantes.id where participantes.sexo = 'M' GROUP BY participantes.nome ORDER BY participantes.nome;";
+        $consulta_f = "SELECT participantes.nome AS nome_participante,  SUM(CASE WHEN votos.id_jurado = 1 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J1,  SUM(CASE WHEN votos.id_jurado = 2 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J2,  SUM(CASE WHEN votos.id_jurado = 3 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J3,  SUM(CASE WHEN votos.id_jurado = 4 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J4, SUM(CASE WHEN votos.id_jurado = 5 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J5,  SUM(CASE WHEN votos.id_jurado = 6 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J6,  SUM(CASE WHEN votos.id_jurado = 7 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J7, SUM(votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura) AS total FROM votos JOIN participantes ON votos.id_participante = participantes.id where participantes.sexo = 'M' GROUP BY participantes.nome ORDER BY total DESC;";
 
         $consulta_feita_f = $this->pdo->prepare($consulta_f);
         $consulta_feita_f->execute();
         $vencedores = $this->vencedor();
         $vencedores = $this->vencedor();
-        if (sizeof($vencedores) !== 6) {
-            echo '<p class="aviso">&#9888; Verifique se todos desfilaram e se todos os jurados votaram...</p>';
-        }
         if ($consulta_feita_f) {
             echo '<table class="cell-border">';
-            echo '<caption>Homens</caption>';
+            if (sizeof($vencedores) !== 6) {
+                echo '<caption><p>Homens</p><p class="aviso">&#9888; Verifique se todos desfilaram e se todos os jurados votaram...</p></caption>';
+            } else {
+                echo '<caption>Homens</caption>';
+            }
             echo '<thead><tr>';
             echo '<th>Participante</th>';
             echo '<th>J-1</th>';
@@ -106,19 +114,19 @@ Class Votacao {
             echo '</tr></thead>';
             $tipo = '';
             foreach ($consulta_feita_f as $linha) {
-                if (isset($vencedores['rei']) and $linha['nome_participante'] === $vencedores['rei']) {
+                if (isset($vencedores['rei']) and urldecode($linha['nome_participante']) === $vencedores['rei']) {
                     $tipo = 'rei';
                     // echo "<script>$linha[nome_participante] $vencedores[rainha]</script>";
                 }
-                if (isset($vencedores['principe']) and $linha['nome_participante'] === $vencedores['principe']) {
+                if (isset($vencedores['principe']) and urldecode($linha['nome_participante']) === $vencedores['principe']) {
                     $tipo = 'principe';
                     // echo "<script>$linha[nome_participante] $vencedores[princesa]</script>";
                 }
-                if (isset($vencedores['terceiro']) and $linha['nome_participante'] === $vencedores['terceiro']) {
+                if (isset($vencedores['terceiro']) and urldecode($linha['nome_participante']) === $vencedores['terceiro']) {
                     $tipo = 'terceiro';
                 }
                 echo "<tr class=\"$tipo\">";
-                echo "<td class=\"dt-body-left\">$linha[nome_participante]</td>";
+                echo "<td class=\"dt-body-left\">" . urldecode($linha['nome_participante']) . "</td>";
                 echo "<td>$linha[J1]</td>";
                 echo "<td>$linha[J2]</td>";
                 echo "<td>$linha[J3]</td>";
@@ -136,14 +144,14 @@ Class Votacao {
         }
     }
     public function resultado_geral_f() {
-        $consulta_m = "SELECT participantes.nome AS nome_participante,  SUM(CASE WHEN votos.id_jurado = 1 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J1,  SUM(CASE WHEN votos.id_jurado = 2 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J2,  SUM(CASE WHEN votos.id_jurado = 3 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J3,  SUM(CASE WHEN votos.id_jurado = 4 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J4,  SUM(CASE WHEN votos.id_jurado = 5 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J5,  SUM(CASE WHEN votos.id_jurado = 6 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J6,  SUM(CASE WHEN votos.id_jurado = 7 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J7, SUM(votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura) AS total FROM votos JOIN participantes ON votos.id_participante = participantes.id where participantes.sexo = 'F' GROUP BY participantes.nome ORDER BY participantes.nome;";
+        $consulta_m = "SELECT participantes.nome AS nome_participante,  SUM(CASE WHEN votos.id_jurado = 1 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J1,  SUM(CASE WHEN votos.id_jurado = 2 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J2,  SUM(CASE WHEN votos.id_jurado = 3 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J3,  SUM(CASE WHEN votos.id_jurado = 4 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J4,  SUM(CASE WHEN votos.id_jurado = 5 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J5,  SUM(CASE WHEN votos.id_jurado = 6 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J6,  SUM(CASE WHEN votos.id_jurado = 7 THEN votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura ELSE 0 END) AS J7, SUM(votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura) AS total FROM votos JOIN participantes ON votos.id_participante = participantes.id where participantes.sexo = 'F' GROUP BY participantes.nome ORDER BY total DESC;";
 
         $consulta_feita_m = $this->pdo->prepare($consulta_m);
         $consulta_feita_m->execute();
         $vencedores = $this->vencedor();
         $vencedores = $this->vencedor();
         if ($consulta_feita_m) {
-            echo '<table class="cell-border">';
+            echo '<table class="cell-border">'; 
             if (sizeof($vencedores) !== 6) {
                 echo '<caption><p>Mulheres</p><p class="aviso">&#9888; Verifique se todos desfilaram e se todos os jurados votaram...</p></caption>';
             } else {
@@ -162,19 +170,19 @@ Class Votacao {
             echo '</tr></thead>';
             $tipo = '';
             foreach ($consulta_feita_m as $linha) {
-                if (isset($vencedores['rainha']) and $linha['nome_participante'] === $vencedores['rainha']) {
+                if (isset($vencedores['rainha']) and urldecode($linha['nome_participante']) === $vencedores['rainha']) {
                     $tipo = 'rainha';
                     // echo "<script>$linha[nome_participante] $vencedores[rei]</script>";
                 }
-                if (isset($vencedores['princesa']) and $linha['nome_participante'] === $vencedores['princesa']) {
+                if (isset($vencedores['princesa']) and urldecode($linha['nome_participante']) === $vencedores['princesa']) {
                     $tipo = 'princesa';
                     // echo "<script>$linha[nome_participante] $vencedores[principe]</script>";
                 }
-                if (isset($vencedores['terceira']) and $linha['nome_participante'] === $vencedores['terceira']) {
+                if (isset($vencedores['terceira']) and urldecode($linha['nome_participante']) === $vencedores['terceira']) {
                     $tipo = 'terceira';
                 }
                 echo "<tr class=\"$tipo\">";
-                echo "<td class=\"dt-body-left\">$linha[nome_participante]</td>";
+                echo "<td class=\"dt-body-left\">" . urldecode($linha['nome_participante']) . "</td>";
                 echo "<td>$linha[J1]</td>";
                 echo "<td>$linha[J2]</td>";
                 echo "<td>$linha[J3]</td>";
@@ -209,7 +217,7 @@ Class Votacao {
             echo '<th>total</th>';
             echo '</tr></thead>';
             foreach ($consulta_feita as $linha) {
-                echo "<tr><td>$linha[p_nome]</td>";
+                echo "<tr><td>" . urldecode($linha['p_nome']) . "</td>";
                 echo "<td>$linha[n1]</td>";
                 echo "<td>$linha[n2]</td>";
                 echo "<td>$linha[n3]</td>";
