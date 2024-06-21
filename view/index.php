@@ -26,7 +26,9 @@
                 </div>
                 <div class="linha">
                     <label for="juradoId">Você é o jurado </label>
-                    <select name="jurado" id="juradoId">
+                </div>
+                <div class="linha">
+                    <select name="jurado" id="juradoId" class="classic">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -43,12 +45,14 @@
                 </div>
                 <div class="linha">
                     <label for="participanteId">A participante a se avaliada é a</label>
-                    <?php
-                    require_once '../model/Participante.Class.php'; 
-                    $x = new Participante;
-                    $x->get_participantes();
-                    ?>
                 </div>
+                    <div class="linha">
+                        <?php
+                        require_once '../model/Participante.Class.php';
+                        $x = new Participante;
+                        $x->get_participantes();
+                        ?>
+                    </div>
                 <div class="campo">
                     <div class="campo">
                         <div class="linha">
@@ -200,7 +204,7 @@
                     </div>
                 </div>
             </div>
-            <div class="linha">
+            <div class="linha btns">
                 <div class="area-btn">
                     <button type="button" id="btnAtivarModalId" class="btn enviar">Enviar</button>
                     <dialog id="confirmarId">
