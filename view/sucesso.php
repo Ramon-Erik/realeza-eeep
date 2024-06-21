@@ -13,7 +13,7 @@
 
 <body>
     <header></header>
-    <main>
+    <main class="margin-b">
         <div class="cabecalho">
             <div class="linha-cab">
                 <h1>Votação Realeza Salaberga 2024</h1>
@@ -22,6 +22,20 @@
         <article>
             <div class="suc-campo">
                 <h2>Sucesso</h2>
+                <?php 
+                if (isset($_GET['s_id'])) {
+                    switch ($_GET['s_id']) {
+                        case '1':
+                            echo '<p>Adicionado com sucesso!</p>';
+                            break;
+                        case '2':
+                            echo '<p>Voto realizado com sucesso.</p>';
+                            break;
+                    } 
+                } else {
+                    echo '<p>algo deu errado</p>';
+                }
+                ?>
                 <p>Seus votos forma adicionados com sucesso</p>
             </div>
             <div class="campo">
@@ -30,5 +44,8 @@
             </div>
         </article>
     </main>
+    <footer>
+        <p>Site desenvolvido por <a href="https://instagram.com/29erik_" target="_blank" rel="noopener noreferrer">Ramon Erik (Informática 2022-2024)</a></p>
+    </footer>
 </body>
 </html>

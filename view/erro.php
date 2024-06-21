@@ -13,7 +13,7 @@
 
 <body>
     <header></header>
-    <main>
+    <main class="margin-b">
         <div class="cabecalho">
             <div class="linha-cab">
                 <h1>Votação Realeza Salaberga 2024</h1>
@@ -23,8 +23,17 @@
             <div class="suc-campo">
                 <h2>Erro</h2>
                 <?php 
-                if (isset($_GET['err_id']) and $_GET['err_id'] === '1') {
-                    echo '<p>Parece que você já votou!</p>';
+                if (isset($_GET['err_id'])) {
+                    switch ($_GET['err_id']) {
+                        case '1':
+                            echo '<p>Parece que você já votou!</p>';
+                            break;
+                        case '2':
+                            echo '<p>Parece que você não selecionou alguém para votar.</p>';
+                            break;
+                    } 
+                } else {
+                    echo '<p>algo deu errado</p>';
                 }
                 ?>
             </div>
@@ -34,5 +43,8 @@
             </div>
         </article>
     </main>
+    <footer>
+        <p>Site desenvolvido por <a href="https://instagram.com/29erik_" target="_blank" rel="noopener noreferrer">Ramon Erik (Informática 2022-2024)</a></p>
+    </footer>
 </body>
 </html>
