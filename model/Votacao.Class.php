@@ -10,10 +10,9 @@ Class Votacao {
         $select_v->bindValue(":id_participante", $id_participante);
         $select_v->bindValue(":id_jurado", $id_jurado);
         $select_v->execute();
-        echo 'na classe' . $select_v->rowCount();
-
+        session_start();
+        $_SESSION['id_jurado'] = $id_jurado;
         if ($select_v->rowCount() === 0 and $id_participante !== 'none') {
-            echo 'no if';
             $consulta = "INSERT INTO votos VALUES (null, :id_participante, :id_jurado,  :nota_simpatia, :nota_charme, :nota_elegancia, :nota_desenvoltura);";
             $consulta_feita = $this->pdo->prepare($consulta);
             $consulta_feita->bindValue(":id_participante", $id_participante);
@@ -23,8 +22,6 @@ Class Votacao {
             $consulta_feita->bindValue(":nota_elegancia", $notas[2]);
             $consulta_feita->bindValue(":nota_desenvoltura", $notas[3]);
             $consulta_feita->execute();
-            session_start();
-            $_SESSION['id_jurado'] = $id_jurado;
             header('location: ../view/sucesso.php?s_id=2');
         } else {
             if ($select_v->rowCount() >= 1) {
@@ -201,8 +198,8 @@ Class Votacao {
     }
     public function resultado_jurado() {
         $consulta = "SELECT participantes.nome as p_nome, votos.nota_simpatia as n1, votos.nota_charme as n2, votos.nota_elegancia as n3, votos.nota_desenvoltura as n4, votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura AS total FROM votos inner join participantes on participantes.id = votos.id_participante where votos.id_jurado = :id_jurado;";
-        session_start();$id_jurado = 
-        $_SESSION['id_jurado'];
+        session_start();
+        $id_jurado = $_SESSION['id_jurado'];
         $consulta_feita = $this->pdo->prepare($consulta);
         $consulta_feita->bindValue(":id_jurado", $id_jurado);
         $consulta_feita->execute();
