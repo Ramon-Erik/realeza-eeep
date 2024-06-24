@@ -228,7 +228,7 @@ Class Votacao {
                 echo '<p style="text-align: center;">Parece que ainda não há votações.</p>';
             }
         } else {
-            echo '<p style="text-align: center;">Não identifiquei o jurado...</p>';
+            header('location: ../../view/erro.php?err_id=3');
         }
     }
 }

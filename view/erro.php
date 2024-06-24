@@ -30,6 +30,9 @@
                         case '2':
                             echo '<p>Parece que você não selecionou alguém para votar.</p>';
                             break;
+                        case '3':
+                            echo '<p>Não foi possivel encontrar suas notas, tente novamnte.</p>';
+                            break;
                     } 
                 } else {
                     echo '<p>algo deu errado</p>';
