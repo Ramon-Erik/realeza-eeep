@@ -199,34 +199,37 @@ Class Votacao {
     public function resultado_jurado() {
         $consulta = "SELECT participantes.nome as p_nome, votos.nota_simpatia as n1, votos.nota_charme as n2, votos.nota_elegancia as n3, votos.nota_desenvoltura as n4, votos.nota_simpatia + votos.nota_charme + votos.nota_elegancia + votos.nota_desenvoltura AS total FROM votos inner join participantes on participantes.id = votos.id_participante where votos.id_jurado = :id_jurado;";
         session_start();
-        $id_jurado = $_SESSION['id_jurado'];
-        $consulta_feita = $this->pdo->prepare($consulta);
-        $consulta_feita->bindValue(":id_jurado", $id_jurado);
-        $consulta_feita->execute();
-        if ($consulta_feita->rowCount()) {
-            echo '<table class="tabela-jurado">';
-            echo '<thead><tr>';
-            echo '<th>Participante</th>';
-            echo '<th>Simpatia</th>';
-            echo '<th>Charme</th>';
-            echo '<th>Elegância</th>';
-            echo '<th>Desenvoltura</th>';
-            echo '<th>total</th>';
-            echo '</tr></thead>';
-            foreach ($consulta_feita as $linha) {
-                echo "<tr><td>" . urldecode($linha['p_nome']) . "</td>";
-                echo "<td>$linha[n1]</td>";
-                echo "<td>$linha[n2]</td>";
-                echo "<td>$linha[n3]</td>";
-                echo "<td>$linha[n4]</td>";
-                echo "<td>$linha[total]</td>";
-                echo '</tr>';
+        if (isset($_SESSION['id_jurado'])) {
+            $id_jurado = $_SESSION['id_jurado'];
+            $consulta_feita = $this->pdo->prepare($consulta);
+            $consulta_feita->bindValue(":id_jurado", $id_jurado);
+            $consulta_feita->execute();
+            if ($consulta_feita->rowCount()) {
+                echo '<table class="tabela-jurado">';
+                echo '<thead><tr>';
+                echo '<th>Participante</th>';
+                echo '<th>Simpatia</th>';
+                echo '<th>Charme</th>';
+                echo '<th>Elegância</th>';
+                echo '<th>Desenvoltura</th>';
+                echo '<th>total</th>';
+                echo '</tr></thead>';
+                foreach ($consulta_feita as $linha) {
+                    echo "<tr><td>" . urldecode($linha['p_nome']) . "</td>";
+                    echo "<td>$linha[n1]</td>";
+                    echo "<td>$linha[n2]</td>";
+                    echo "<td>$linha[n3]</td>";
+                    echo "<td>$linha[n4]</td>";
+                    echo "<td>$linha[total]</td>";
+                    echo '</tr>';
+                }
+                echo '</table>';
+            } else {
+                echo '<p style="text-align: center;">Parece que ainda não há votações.</p>';
             }
-            echo '</table>';
         } else {
-            echo '<p style="text-align: center;">Parece que ainda não há votações.</p>';
+            echo '<p style="text-align: center;">Não identifiquei o jurado...</p>';
         }
-
     }
 }
 ?>

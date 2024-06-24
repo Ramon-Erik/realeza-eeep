@@ -20,7 +20,7 @@ Class Participante {
     }
     public function get_participantes() {
         try {
-            $consulta = "SELECT * FROM participantes order by sexo";
+            $consulta = "SELECT * FROM participantes order by sexo, nome";
             $select_p = $this->pdo->prepare($consulta);
             $select_p->execute();
             if ($select_p->rowCount() >= 1) {
@@ -47,5 +47,26 @@ Class Participante {
             echo '<p>Erro php:</p><pre>' . $exc;
         }
     }
+    public function get_participantess() {
+        try {
+            $consulta = "SELECT * FROM participantes order by nome, sexo";
+            $select_p = $this->pdo->prepare($consulta);
+            $select_p->execute();
+            if ($select_p->rowCount() >= 1) {
+                foreach ($select_p as $p) {
+                    echo "<p>". urldecode($p['nome']). "</p>"; 
+                }
+            } else {
+                echo '<p>Nenhum cadastro.</p>';
+            }
+        } catch (PDOException $pdo_e) {
+            echo '<p>Erro com o pdo:</p><pre>' . $pdo_e;
+        } catch (Exception $exc) {
+            echo '<p>Erro php:</p><pre>' . $exc;
+        }
+    }
 }
+
+// $x = new Participante;
+// $x->get_participantess();
 ?>
