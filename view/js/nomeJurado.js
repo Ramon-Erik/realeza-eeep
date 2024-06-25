@@ -3,8 +3,10 @@ let nome;
 switch (localStorage.getItem('jurado')) {
     case '1':
         nome = 'Bruna Fly'
+        break;
     case '2':
         nome = 'Daniel Mesquita'
+        break;
     case '3':
         nome = 'Drielly Sanny'
         break;
